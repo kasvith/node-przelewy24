@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@kasvith/node-przelewy24 - v1.0.0</title>
+	<title>@kasvith/node-przelewy24 - v1.0.2</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">@kasvith/node-przelewy24 - v1.0.0</a>
+					<a href="index.html" class="title">@kasvith/node-przelewy24 - v1.0.2</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> @kasvith/node-przelewy24 - v1.0.0</h1>
+			<h1> @kasvith/node-przelewy24 - v1.0.2</h1>
 		</div>
 	</div>
 </header>
@@ -71,6 +71,10 @@
 				<p>NodeJS Library for Przelewy24. This library is written in Typescript to provide
 				best typesafety.</p>
 				<p>This library provides an elegant way to create/verify transactions easily.</p>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>Documentation can be in read <a href="https://kasvith.github.io/node-przelewy24">here</a>.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
@@ -103,7 +107,8 @@
         p24_description: <span class="hljs-string">'a fancy item'</span>, <span class="hljs-comment">// set description</span>
         p24_email: <span class="hljs-string">'jhondoe@gmail.com'</span>, <span class="hljs-comment">// customer's email</span>
         p24_session_id: <span class="hljs-string">'kdsfksfklfklfffl'</span>, <span class="hljs-comment">// a unique id from merchant's system</span>
-        p24_url_return: <span class="hljs-string">'http://myawesomeapp.com/p24callback'</span> <span class="hljs-comment">// callback</span>
+        p24_url_return: <span class="hljs-string">'http://myawesomeapp.com/payment_success?order=abc'</span>, <span class="hljs-comment">// return user to following url after a valid transaction</span>
+        p24_url_status: <span class="hljs-string">'http://myawesomeapp.com/p24callback'</span>
     };
 
 <span class="hljs-comment">// prepare shopping details(optional)</span>
@@ -118,9 +123,9 @@
 				<a href="#verifies-a-payment" id="verifies-a-payment" style="color: inherit; text-decoration: none;">
 					<h3>Verifies a payment</h3>
 				</a>
-				<p>Verifies a payment on p24 system. Once a sucessfull payment happen, callback url is triggered with a <code>POST</code> request containing all the details for verify a transaction. When this happens the transaction becomes valid. <code>TransactionVerification</code> model is used to verify a transaction.</p>
+				<p>Verifies a payment on p24 system. Once a sucessfull payment happen, <code>http://myawesomeapp.com/p24callback</code> is triggered with a <code>POST</code> request containing all the details for verify a transaction. When this happens the transaction becomes valid. <code>TransactionVerification</code> model is used to verify a transaction.</p>
 				<pre><code class="language-typescript"><span class="hljs-comment">// extract all information from callback request</span>
-<span class="hljs-keyword">const</span> { 
+<span class="hljs-keyword">const</span> {
     p24_merchant_id,
     p24_pos_id,
     p24_session_id,
@@ -142,6 +147,12 @@
 <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> p24.verifyTransaction(verification)
 <span class="hljs-built_in">console</span>.log(result) <span class="hljs-comment">// true on success or throws an error</span>
 </code></pre>
+				<a href="#validate-ip" id="validate-ip" style="color: inherit; text-decoration: none;">
+					<h3>Validate IP</h3>
+				</a>
+				<p>Library provides method to validate IP addresses with P24 backends</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">const</span> valid = Przelewy24.isIpValid(<span class="hljs-string">'127.0.0.1'</span>)
+<span class="hljs-built_in">console</span>.log(valid)</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
